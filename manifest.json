@@ -1,0 +1,14 @@
+{ 
+   	"name": "Air Play Box",
+   	"version": "0.1",
+   	"description": "網路音樂管理擴展。", 
+   	"manifest_version":2,
+   	"icons": { "16": "icon_16.png" ,"32": "icon_32.png" ,"48": "icon_32.png","128": "icon_32.png"},
+   "browser_action": {
+      "default_icon": "icon_16.png"
+   },
+   	"options_page": "player.html",
+	"permissions": [
+   	"storage"
+ 	]
+}
