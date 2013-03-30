@@ -146,7 +146,9 @@ $('#SaveDataButton').click(function () {
 		$('#DataError').css('top','10px');
 	};
 });
-
+$("#EchoDataBox").click(function () {
+	$(this).removeClass("warn");
+});
 // add music
 addbutton.click(function () {
 	if (addmusic.val().substring(0,7) == "http://" || addmusic.val().substring(0,8) == "https://") {
@@ -163,7 +165,7 @@ addbutton.click(function () {
 			if (addname.val()) {
 				var musicname = addname.val();
 			} else {
-				var musicname = musicurl.substring(musicurl.lastIndexOf("/")+1,musicurl.lastIndexOf(".mp3"));
+				var musicname = musicurl.substring(musicurl.lastIndexOf("/")+1);
 			};
 			musics.musiclist.push({"mname":[musicname],"url":[musicurl]});
 		};
@@ -226,6 +228,16 @@ onward.click(function () {
 //For Music Ilst
 if (localStorage.musiclist) {	//判断数据库是否为空
 	musics = JSON.parse(localStorage.musiclist);//获取数据组
+	if (localStorage.musicvolume) {
+		if (localStorage.volumestate == 'false') {
+			$('#vbutton').addClass('mute');
+			music.volume = 0;
+		} else {
+			music.volume = localStorage.musicvolume;//自動設置為用戶之前大音量大小
+		};
+	} else{
+		music.volume = localStorage.musicvolume = 0.5;
+	};
 	if (musics.musiclist[0]) {
 		for (i = 0; i < musics.musiclist.length; i++) {
 			muname = musics.musiclist[i].mname;
@@ -255,21 +267,25 @@ pberbox.click( function () {
 vber.css("width",audio.volume*vboxw);
 vbox.click( function () {
   	audio.volume = (event.pageX-vbox.offset().left-3)/vboxw;//音量控制
+  	localStorage.musicvolume = audio.volume;
   	vber.css("width",event.pageX-vbox.offset().left-3);
   	if (audio.volume < 0.02) {
 		vbutton.addClass('mute');
+		localStorage.volumestate = 'false';
   	} else {
   		vbutton.removeClass('mute');
+  		localStorage.volumestate = 'true';
   	};
 });
 vbutton.click(function () {
 	if (audio.volume != 0) {
-		audioVolume = audio.volume;
+		localStorage.volumestate = 'false';
 		audio.volume = 0;
 		$(this).addClass('mute');
   		vber.css("width",0);
 	} else if(audio.volume==0) {
-		audio.volume = audioVolume;
+		audio.volume = localStorage.musicvolume;
+		localStorage.volumestate = 'true';
 		$(this).removeClass('mute');
   		vber.css("width",audio.volume*vboxw);
 	};
@@ -281,9 +297,11 @@ audio.addEventListener('ended', function() {	//播放完毕
   		mNo = mNo+1;
   		echomusic(mNo);
   	} else {
-		play.removeClass('stop');
-  		playtime.text(showtime);//时间还原
-  		showtime = gettime(music.duration);
+  		mNo = 0;
+  		echomusic(mNo);
+		// play.removeClass('stop');
+  // 		playtime.text(showtime);//时间还原
+  // 		showtime = gettime(music.duration);
 	};
 }, false);
 
@@ -344,8 +362,8 @@ $('body').on('click', '#editbutton',function () {
 		listbox = document.getElementById("list");
 		listeditbox = listbox.getElementsByTagName("li")[editNo];
 		if (editname == "") {
-			musics.musiclist[editNo].mname = editurl.substring(editurl.lastIndexOf("/")+1,editurl.lastIndexOf(".mp3"));
-			editnames = editurl.substring(editurl.lastIndexOf("/")+1,editurl.lastIndexOf(".mp3"));
+			musics.musiclist[editNo].mname = editurl.substring(editurl.lastIndexOf("/")+1);
+			editnames = editurl.substring(editurl.lastIndexOf("/")+1);
 			listeditbox.innerHTML = '<span>'+editnames+'</span><div class="edit"></div><div class="del"></div>';
 		} else if (editname != musics.musiclist[editNo].mname) {
 			musics.musiclist[editNo].mname = editname;

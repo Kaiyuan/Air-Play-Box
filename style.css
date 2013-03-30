@@ -169,6 +169,7 @@ a, a *, #console li, #vbutton, .del {
 	margin: 10px 0;
 	height: 40px;
 	font-size: 1.6em;
+	font-weight: 500;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -247,8 +248,9 @@ a, a *, #console li, #vbutton, .del {
 	box-shadow: 0 5px 15px rgba(0,0,0,.1);
 }
 #list li {
-	height: 24px;
-	padding: 10px 60px 10px 10px;
+	height: 44px;
+	padding: 0 60px 0 10px;
+	line-height: 44px;
 	border-top: 1px solid #f5f5f5;
 	position: relative;
 	/*cursor: move；*/
@@ -317,9 +319,11 @@ body .backtop {
 	max-width: 100px;
 	border-width: 0;
 	background: none;
-	/*background: url(Add.svg) center center no-repeat;*/
+	background: center center no-repeat;
 	background-size: 40px 40px;
 }
+#addmusicbox textarea {background-image: url(link.svg);}
+#addimgbox textarea {background-image: url(Picture.svg);}
 #addnamebox {
 	background: #f5f5f5;
 	padding: 5px;
@@ -394,8 +398,11 @@ body .top0 {top: 0 !important;}
     -o-transform: rotateZ(45deg);
 }
 #editbox li {
-	padding: 3px;
-	background: #f2f2f2;
+	padding: 3px 3px 3px 25px;
+	background-size: 12px 12px;
+	background-repeat: no-repeat;
+	background-position: 5px center;
+	background-color: #f2f2f2;
 	margin-bottom: 5px;
 }
 #editbox input, #EchoBox textarea {
@@ -404,12 +411,17 @@ body .top0 {top: 0 !important;}
 	display: block;
 	width: 100%;
 }
+#editbox input {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
 #editbutton, #EchoBox button {
 	border-width: 0;
 	border-radius: 12px;
 	height: 24px;
 	line-height: 24px;
-	background: #eee;
+	background-color: #eee;
 	padding: 0 20px;
 	text-align: center;
 	cursor: pointer;
@@ -426,6 +438,9 @@ body .top0 {top: 0 !important;}
 	top: -10px;
 	box-shadow: 0 1px 5px rgba(0,0,0,.3);
 }
+#editnamebox{background-image: url(Music.svg);}
+#editurlbox{background-image: url(link.svg);}
+#editimgbox{background-image: url(Picture.svg);}
 /*Echo data*/
 #EchoBox {
 	position: absolute;
