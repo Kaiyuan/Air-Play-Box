@@ -2,7 +2,11 @@
 
 HTML5 Music player
 
+<<<<<<< HEAD
 这是一个坑，我不打算填了。
+=======
+这是一个坑，我不会填这个坑的了。
+>>>>>>> edit readme
 
 使用 `localStorage` 浏览器本地储存JSON数据方式管理网络音乐。
 
